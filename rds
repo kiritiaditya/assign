@@ -1,0 +1,41 @@
+main.tf
+
+resource "aws_db_subnet_group" "this" {
+  name       = "${var.env}-db-subnet-group"
+  subnet_ids = [var.subnet_id]
+
+  tags = {
+    Name = "${var.env}-db-subnet-group"
+  }
+}
+resource "aws_db_instance" "this" {
+  identifier        = "${var.env}-rds"
+  allocated_storage = 20
+  engine            = "mysql"
+  engine_version    = "8.0"
+  instance_class    = "db.t3.micro"
+  username          = var.db_user
+  password          = var.db_pass
+  db_name           = var.db_name
+  skip_final_snapshot = true
+
+  vpc_security_group_ids = [var.sg_id]
+  db_subnet_group_name   = aws_db_subnet_group.this.name
+  publicly_accessible    = true
+
+  tags = {
+      Name = "${var.env}-rds"
+  }
+}
+
+----------------------------------------------------------------------------------
+
+#variables.tf
+
+variable "env" {}
+variable "db_user" {}
+variable "db_pass" {}
+variable "db_name" {}
+variable "sg_id" {}
+variable "subnet_id" {}
+
