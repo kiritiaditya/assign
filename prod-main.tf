@@ -14,7 +14,7 @@ module "ec2" {
   source         = "../../modules/ec2"
   env            = "prod"
   ami            = "ami-04b4f1a9cf54c11d0"
-  instance_type  = "t3.small"   # bigger than dev/staging
+  instance_type  = "t3.small" 
   subnet_id      = module.vpc.public.id
   key_name       = "ansible"
 }
