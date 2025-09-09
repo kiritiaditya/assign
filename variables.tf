@@ -1,0 +1,11 @@
+variable "env" {}
+variable "region" {}
+variable "vpc_cidr" {}
+variable "public_subnet_cidr" {}
+variable "az" {}
+variable "ami" {}
+variable "instance_type" {}
+variable "key_name" {}
+variable "db_user" {}
+variable "db_pass" {}
+variable "db_name" {}
