@@ -2,7 +2,7 @@ main.tf
 
 resource "aws_db_subnet_group" "this" {
   name       = "${var.env}-db-subnet-group"
-  subnet_ids = [var.subnet_id]
+  subnet_ids = var.subnet_ids
 
   tags = {
     Name = "${var.env}-db-subnet-group"
@@ -37,5 +37,9 @@ variable "db_user" {}
 variable "db_pass" {}
 variable "db_name" {}
 variable "sg_id" {}
-variable "subnet_id" {}
-
+variable "subnet_ids" {
+  type = list(string)  # <- must be a list for multi-AZ
+}
+variable "instance_class" {
+  default = "db.t3.micro"
+}
