@@ -6,8 +6,8 @@ module "vpc" {
   source             = "./modules/vpc"
   env                = var.env
   vpc_cidr           = var.vpc_cidr
-  public_subnet_cidr = var.public_subnet_cidr
-  az                 = var.az
+  public_subnet_cidrs = var.public_subnet_cidrs
+  azs                 = var.azs
 }
 
 module "ec2" {
@@ -15,7 +15,7 @@ module "ec2" {
   env           = var.env
   ami           = var.ami
   instance_type = var.instance_type
-  subnet_id     = module.vpc.public_subnet_id
+  subnet_id     = module.vpc.public_subnet_ids[0] 
   key_name      = var.key_name
 }
 
@@ -26,5 +26,5 @@ module "rds" {
   db_pass  = var.db_pass
   db_name  = var.db_name
   sg_id    = module.vpc.sg_id
-  subnet_id = module.vpc.public_subnet_id
+  subnet_ids = module.vpc.public_subnet_ids
 }
