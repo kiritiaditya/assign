@@ -38,7 +38,7 @@ variable "db_pass" {}
 variable "db_name" {}
 variable "sg_id" {}
 variable "subnet_ids" {
-  type = list(string)  # <- must be a list for multi-AZ
+  type = list(string)  
 }
 variable "instance_class" {
   default = "db.t3.micro"
